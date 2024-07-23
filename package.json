@@ -6,21 +6,73 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "test:prod": "echo \"Error: no test specified\" && exit 0",
+    "eslint": "npx eslint . --ext html,js,jsx,ts,tsx,json,jsonc --max-warnings 0",
+    "eslint:fix": "npx eslint . --ext html,js,jsx,ts,tsx,json,jsonc --fix",
+    "format": "prettier --check './**/*.{css,scss,html,js,jsx,ts,tsx,json,jsonc}'",
+    "format:fix": "prettier --write './**/*.{css,scss,html,js,jsx,ts,tsx,json,jsonc}'",
+    "lighthouse": "lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=.",
+    "stylelint": "npx stylelint **/*.{css,scss}",
+    "stylelint:fix": "npx stylelint **/*.{css,scss} --fix",
+    "webhint": "npx hint .",
+    "lint": "npm run eslint && npm run stylelint",
+    "lint:fix": "npm run format:fix && npm run eslint:fix && npm run stylelint:fix",
+    "prepare": "husky"
   },
   "dependencies": {
+    "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.5"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@lhci/cli": "^0.14.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsonc": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "hint": "^7.1.12",
+    "husky": "^9.1.1",
+    "lint-staged": "^15.2.7",
+    "organize-imports-cli": "^0.10.0",
     "postcss": "^8",
+    "prettier": "^3.3.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-csstree-validator": "^3.0.0",
+    "stylelint-scss": "^5.3.2",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "typescript": "^5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run format && npm run lint"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{css,scss}": [
+      "npm run stylelint"
+    ],
+    "./**/*.{js,jsx,ts,tsx}": [
+      "npx organize-imports-cli"
+    ],
+    "./**/*.{html,js,jsx,ts,tsx,json,jsonc}": [
+      "npm run format",
+      "npm run eslint"
+    ]
   }
 }

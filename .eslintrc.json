@@ -1,3 +1,43 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2023": true,
+    "jest": true
+  },
+  "globals": {
+    "React": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "next",
+    "next/core-web-vitals",
+    "plugin:jsonc/recommended-with-json",
+    "plugin:jsonc/recommended-with-jsonc",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "plugins": ["html", "prettier", "react"],
+  "reportUnusedDisableDirectives": true,
+  "rules": {
+    "import/no-unresolved": "off",
+    "no-shadow": "off",
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "react/react-in-jsx-scope": "off"
+  },
+  "ignorePatterns": [".next/", "!.stylelintrc.json", "build/", "dist/", "node_modules/"]
 }
